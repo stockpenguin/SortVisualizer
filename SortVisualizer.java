@@ -11,7 +11,7 @@ public class SortVisualizer {
     private PenguinList<SortRectangle> rectangles;
 
     private SortVisualizer() {
-        win = new Window(1000, 700);
+        win = new Window(500, 500);
         renderer = win.getR();
         rectangles = renderer.getRectangles();
     }

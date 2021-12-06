@@ -1,3 +1,3 @@
 public enum Sort {
-    BUBBLE, RADIX
+    BUBBLE, RADIX, QUICK
 }

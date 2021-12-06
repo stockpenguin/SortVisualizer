@@ -35,6 +35,9 @@ public class SortVisualizer {
             case RADIX:
                 performRadixSort();
                 break;
+            case QUICK:
+                performQuickSort();
+                break;
         }
     }
 
@@ -45,7 +48,6 @@ public class SortVisualizer {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length-i-1; j++) {
                 rectangles.get(j).setColor(Color.green);
-                rectangles.update();
                 if (arr[j] > arr[j+1]) {
                     int temp = arr[j];
                     arr[j] = arr[j+1];
@@ -57,6 +59,44 @@ public class SortVisualizer {
             }
         }
         generateRectangles(arr);
+    }
+
+    private void performQuickSort() throws InterruptedException {
+        int[] arr = generateRandomArray(Main.LENGTH);
+        generateRectangles(arr);
+        quickSort(arr, 0, arr.length - 1);
+        generateRectangles(arr);
+    }
+
+    private void quickSort(int[] arr, int low, int high) throws InterruptedException {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+
+            quickSort(arr, low, pi-1);
+            quickSort(arr, pi+1, high);
+        }
+    }
+
+    private int partition(int[] arr, int low, int high) throws InterruptedException {
+        int pivot = arr[high];
+        int i = (low - 1);
+        for (int j = low; j <= high-1; j++) {
+            rectangles.get(j).setColor(Color.GREEN);
+            Thread.sleep(10);
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+            generateRectangles(arr);
+        }
+        swap(arr, i+1, high);
+        return (i+1);
+    }
+
+    private void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     private void performRadixSort() throws InterruptedException {
